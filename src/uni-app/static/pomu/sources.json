@@ -1,0 +1,133 @@
+{
+  "apk": "3122648-57467552-3ee3a5cf8f4ebee4.apk",
+  "assets": [
+    {
+      "label": "法象真言",
+      "table": "item_info",
+      "id": 93103,
+      "file": "item-93103.png",
+      "resource": "FaXiang/93103",
+      "apkAsset": "data/apk-extracted/icons/resourcesab_ui_new_uiimage_icon_item_faxiang/93103--7391577564354193459.png"
+    },
+    {
+      "label": "强化粉尘·蓝",
+      "table": "item_info",
+      "id": 30301,
+      "file": "item-30301.png",
+      "resource": "2101",
+      "apkAsset": "data/apk-extracted/icons/resourcesab_ui_new_uiimage_icon_item/2101--8303258752797795964.png"
+    },
+    {
+      "label": "灵韵仙蛋",
+      "table": "item_info",
+      "id": 1914,
+      "file": "item-1914.png",
+      "resource": "Pet/item_lingshouxianluan",
+      "apkAsset": "data/apk-extracted/icons/resourcesab_ui_new_uiimage_icon_item_pet/item_lingshouxianluan--5318843314438421817.png"
+    },
+    {
+      "label": "飞剑残魄",
+      "table": "item_info",
+      "id": 80001,
+      "file": "item-80001.png",
+      "resource": "steed_experience_icon",
+      "apkAsset": "data/apk-extracted/icons/resourcesab_ui_new_uiimage_icon_item/steed_experience_icon-4194579764822902585.png"
+    },
+    {
+      "label": "仙界心法碎片自选",
+      "table": "item_info",
+      "id": 6031,
+      "file": "item-6031.png",
+      "resource": "img_box_2",
+      "apkAsset": "data/apk-extracted/icons/resourcesab_ui_new_uiimage_icon_item/img_box_2--464381740994640314.png"
+    },
+    {
+      "label": "神兵陨铁",
+      "table": "item_info",
+      "id": 7102,
+      "file": "item-7102.png",
+      "resource": "7102",
+      "apkAsset": "data/apk-extracted/icons/resourcesab_ui_new_uiimage_icon_item/7102--5876339370573728414.png"
+    },
+    {
+      "label": "仙君悟法被动心法碎片",
+      "table": "item_info",
+      "id": 8016,
+      "file": "item-8016.png",
+      "resource": "icon_xinfa_beidong",
+      "apkAsset": "data/apk-extracted/icons/resourcesab_ui_new_uiimage_icon_item/icon_xinfa_beidong-612166392974922243.png"
+    },
+    {
+      "label": "神铸石",
+      "table": "item_info",
+      "id": 7001,
+      "file": "item-7001.png",
+      "resource": "7001",
+      "apkAsset": "data/apk-extracted/icons/resourcesab_ui_new_uiimage_icon_item/7001--7747534242379248760.png"
+    },
+    {
+      "label": "仙君悟法主动心法碎片",
+      "table": "item_info",
+      "id": 8017,
+      "file": "item-8017.png",
+      "resource": "img_box_13",
+      "apkAsset": "data/apk-extracted/icons/resourcesab_ui_new_uiimage_icon_item/img_box_13--8811991071849524847.png"
+    },
+    {
+      "label": "圣宝灵髓",
+      "table": "item_info",
+      "id": 7500,
+      "file": "item-7500.png",
+      "resource": "7500",
+      "apkAsset": "data/apk-extracted/icons/resourcesab_ui_new_uiimage_icon_item/7500-3160641877118654533.png"
+    },
+    {
+      "label": "金仙红色法则碎片箱",
+      "table": "item_info",
+      "id": 2126,
+      "file": "item-2126.png",
+      "resource": "JinXianFaze/12009",
+      "apkAsset": "data/apk-extracted/icons/resourcesab_ui_new_uiimage_icon_item_jinxianfaze/12009-5373647723081489794.png"
+    },
+    {
+      "label": "道痕结晶",
+      "table": "item_info",
+      "id": 93106,
+      "file": "item-93106.png",
+      "resource": "FaXiang/faxiang_4",
+      "apkAsset": "data/apk-extracted/icons/resourcesab_ui_new_uiimage_icon_item_faxiang/faxiang_4-2633800228526040188.png"
+    },
+    {
+      "label": "金仙大道法则碎片箱",
+      "table": "item_info",
+      "id": 2127,
+      "file": "item-2127.png",
+      "resource": "JinXianFaze/12010",
+      "apkAsset": "data/apk-extracted/icons/resourcesab_ui_new_uiimage_icon_item_jinxianfaze/12010--2416090014994774485.png"
+    },
+    {
+      "label": "行功散",
+      "table": "item_info",
+      "id": 1603,
+      "file": "item-1603.png",
+      "resource": "1603",
+      "apkAsset": "data/apk-extracted/icons/resourcesab_ui_new_uiimage_icon_item/1603-2297734307814544448.png"
+    },
+    {
+      "label": "领悟点",
+      "table": "currency_info",
+      "id": 102,
+      "file": "currency-102.png",
+      "resource": "icon_xinfa_cost_01",
+      "apkAsset": "data/apk-extracted/icons/resourcesab_ui_new_uiimage_icon_item/icon_xinfa_cost_01-5301679924200369838.png"
+    },
+    {
+      "label": "悟心残页",
+      "table": "currency_info",
+      "id": 402,
+      "file": "currency-402.png",
+      "resource": "402",
+      "apkAsset": "data/apk-extracted/icons/resourcesab_ui_new_uiimage_icon_item/402--4892851870805534737.png"
+    }
+  ]
+}

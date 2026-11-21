@@ -1,3 +1,5 @@
+import {pomuIcon} from './core/pomu-assets.js';
+const icon = name => pomuIcon(name, 'uni-app/static/pomu/');
 import {simulate,goods,milestones} from './core/planner.js';
 const $=id=>document.getElementById(id);let purchases={},spent=0,refund=0,previewPages=null;
 const num=v=>Math.max(0,Math.min(1000000,Math.trunc(Number(v)||0)));
@@ -6,7 +8,7 @@ $('stages').innerHTML=expected.rows.filter(r=>r.end).map(r=>{const safeRow=safe.
 $('details').innerHTML=expected.rows.map(r=>{pages+=r.pages-(expected.rows[expected.rows.indexOf(r)-1]?.pages||0);return `<tr><td>${r.kills}敌人</td><td>${r.cost}</td><td>+${r.refund}</td><td>${r.pages+base}</td></tr>`}).join('');
 $('stages').scrollLeft=scrollLeft;
 $('spent').textContent=`已消耗 ${spent} 残页`;
-$('shop').innerHTML=[1,2,3,4,5].map(l=>{const items=goods.filter(g=>g.layer===l),unlock=items[0].unlock,locked=spent<unlock;return `<section class="shop-layer ${locked?'locked':''}"><div class="layer-head"><strong>第${['一','二','三','四','五'][l-1]}层</strong><span>每次兑换额外获得行功散 ×${l}</span></div><div class="goods-grid">${items.map(g=>{let left=g.limit-(purchases[g.id]||0);return `<button class="store-item" data-buy="${g.id}" ${locked||!left||num($('wallet').value)<g.price?'disabled':''}><div class="item-name">${g.name}</div><div class="item-icon">${g.name.slice(0,1)}<small>×${g.amount}</small></div><p>剩余 ${left}/${g.limit}</p><div class="price">${g.price} 残页</div></button>`}).join('')}</div>${locked?`<div class="lock-message">再消耗 ${unlock-spent} 残页解锁本层</div>`:''}</section>`}).join('')+`<div class="shop-footer">兑换返还行功散：${refund} 个</div>`;
+$('shop').innerHTML=[1,2,3,4,5].map(l=>{const items=goods.filter(g=>g.layer===l),unlock=items[0].unlock,locked=spent<unlock;return `<section class="shop-layer ${locked?'locked':''}"><div class="layer-head"><strong>第${['一','二','三','四','五'][l-1]}层</strong><span>每次兑换额外获得行功散 ×${l}</span></div><div class="goods-grid">${items.map(g=>{let left=g.limit-(purchases[g.id]||0);return `<button class="store-item" data-buy="${g.id}" ${locked||!left||num($('wallet').value)<g.price?'disabled':''}><div class="item-name">${g.name}</div><div class="item-icon"><img src="${icon(g.name)}" alt="" loading="lazy"><small>×${g.amount}</small></div><p>剩余 ${left}/${g.limit}</p><div class="price">${g.price} 残页</div></button>`}).join('')}</div>${locked?`<div class="lock-message">再消耗 ${unlock-spent} 残页解锁本层</div>`:''}</section>`}).join('')+`<div class="shop-footer">兑换返还行功散：${refund} 个</div>`;
 }
 $('stock').addEventListener('input',()=>{reset();previewPages=null;render()});$('weekly').addEventListener('change',()=>{reset();render()});
 function reset(){spent=0;refund=0;purchases={}}
