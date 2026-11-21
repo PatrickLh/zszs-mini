@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "python3 -m http.server 5173 --bind 127.0.0.1",
     "test": "node --test core/*.test.js",
+    "build:web": "vite build --config vite.web.config.js",
+    "preview:web": "vite preview --config vite.web.config.js --host 127.0.0.1",
     "dev:mp-weixin": "UNI_INPUT_DIR=./uni-app uni -p mp-weixin",
     "build:mp-weixin": "UNI_INPUT_DIR=./uni-app uni build -p mp-weixin"
   },

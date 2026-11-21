@@ -9,6 +9,8 @@ cd src
 npm ci
 npm test
 npm run dev
+npm run build:web
+npm run preview:web
 npm run dev:mp-weixin
 npm run build:mp-weixin
 ```
@@ -16,6 +18,12 @@ npm run build:mp-weixin
 `npm run dev` 启动 H5 预览：[本地预览](http://127.0.0.1:5173)。H5 可直接切换三个活动，小程序从周活动首页进入；顺序为山海灵宝、破木悟法、鉴石大会。两端共用配置和计算引擎，沿用“材料库存 → 七轮需求 → 宝库兑换”的简洁交互。无需输入击败数或抽取次数。
 
 小程序开发产物为 `src/dist/dev/mp-weixin/`，生产产物为 `src/dist/build/mp-weixin/`。在 `src/uni-app/manifest.json` 的 `mp-weixin.appid` 填入微信 AppID 后，用微信开发者工具导入产物。根级 `appid` 为 uni-app 应用标识。当前未完成真机验证。
+
+## Web 部署
+
+在 `src/` 下执行 `npm run build:web`，生成 `src/dist/build/web/`，其中包含 `index.html`、打包后的 JS/CSS 和活动图片。将该目录的全部内容上传到 Nginx、静态托管服务或 CDN 即可，无需 Node.js 后端。资源使用相对路径，支持域名根目录或子目录部署。
+
+执行 `npm run preview:web` 可在本地预览生产包（默认地址 `http://127.0.0.1:4173`）。通过 HTTP/HTTPS 访问；不支持直接双击 HTML 文件运行。这个命令打包现有 Web 页面，沿用当前 UI，与小程序构建相互独立。修改活动配置或图片后，重新构建并上传整个产物目录。
 
 ## 目录
 
