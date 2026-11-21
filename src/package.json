@@ -1,1 +1,21 @@
-{"name":"zszs-planner-preview","private":true,"type":"module","scripts":{"dev":"python3 -m http.server 5173 --bind 127.0.0.1","test":"node --test core/planner.test.js"}}
+{
+  "name": "zszs-planner-preview",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "python3 -m http.server 5173 --bind 127.0.0.1",
+    "test": "node --test core/planner.test.js",
+    "dev:mp-weixin": "UNI_INPUT_DIR=./uni-app uni -p mp-weixin",
+    "build:mp-weixin": "UNI_INPUT_DIR=./uni-app uni build -p mp-weixin"
+  },
+  "dependencies": {
+    "@dcloudio/uni-app": "3.0.0-alpha-5030720261117001",
+    "@dcloudio/uni-components": "3.0.0-alpha-5030720261117001",
+    "@dcloudio/uni-mp-weixin": "3.0.0-alpha-5030720261117001",
+    "vue": "3.4.21"
+  },
+  "devDependencies": {
+    "@dcloudio/vite-plugin-uni": "3.0.0-alpha-5030720261117001",
+    "vite": "5.2.8"
+  }
+}
