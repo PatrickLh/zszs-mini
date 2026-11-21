@@ -1,8 +1,7 @@
-import * as pomu from './planner.js';
-
-// Each activity owns its materials and calculator; unknown rules stay unavailable.
-export const activities = [
-  { id: 'pomu-wufa', name: '破木悟法', status: 'ready', route: '/pages/pomu/index', materials: { stock: '行功散', currency: '残页' }, calculator: pomu },
-  { id: 'weekly-2', name: '周活动二（待补充）', status: 'pending', route: null, materials: null, calculator: null },
-  { id: 'weekly-3', name: '周活动三（待补充）', status: 'pending', route: null, materials: null, calculator: null },
-];
+import { activityConfigs } from '../config/activities/index.js';
+import { createPlanner } from './weekly-planner.js';
+const routes = { 'pomu-wufa': '/pages/pomu/index', 'shanhai-lingbao': '/pages/shanhai/index', 'jianshi-dahui': '/pages/jianshi/index' };
+export const activities = activityConfigs.map(config => ({
+  id: config.id, name: config.name, status: 'ready', route: routes[config.id],
+  materials: { stock: config.material.name, currency: config.currency.name }, calculator: createPlanner(config), config,
+}));

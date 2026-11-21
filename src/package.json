@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "python3 -m http.server 5173 --bind 127.0.0.1",
-    "test": "node --test core/planner.test.js",
+    "test": "node --test core/*.test.js",
     "dev:mp-weixin": "UNI_INPUT_DIR=./uni-app uni -p mp-weixin",
     "build:mp-weixin": "UNI_INPUT_DIR=./uni-app uni build -p mp-weixin"
   },

@@ -1,16 +1,6 @@
 # 宗师之上 · 周活动规划
 
-本仓库包含三个周活动的规划工具。目前实现破木悟法，另外两个活动等待名称、材料和规则。
-
-## 目录
-
-- `data/`：活动资料、截图及 `pomu-wufa.json` 规则参考。
-- `src/uni-app/`：Vue 3 uni-app 小程序源代码。
-- `src/uni-app/pages/index/`：周活动首页。
-- `src/uni-app/pages/pomu/`：破木悟法规划页。
-- `src/core/activities.js`：三个活动的注册信息、材料及计算器接口。
-- `src/core/planner.js`：破木计算引擎，H5 原型与小程序共用。
-- `src/index.html`、`src/app.js`、`src/style.css`：独立 H5 原型，与小程序页面尚有交互差异。
+支持破木悟法、山海灵宝、鉴石大会的库存规划、阶段奖励及分层宝库兑换，默认使用当前 APK 中最新的仙君轮换配置。
 
 ## 开发与构建
 
@@ -18,24 +8,41 @@
 cd src
 npm ci
 npm test
+npm run dev
 npm run dev:mp-weixin
 npm run build:mp-weixin
 ```
 
-开发产物位于 `src/dist/dev/mp-weixin/`，生产产物位于 `src/dist/build/mp-weixin/`。使用微信开发者工具导入产物目录；请先在 `src/uni-app/manifest.json` 的 `mp-weixin.appid` 填入自己的微信小程序 AppID。根级 `appid` 是 uni-app 应用标识，不是微信 AppID。目前未完成真机验证。
+`npm run dev` 启动 H5 预览：[本地预览](http://127.0.0.1:5173)。H5 可直接切换三个活动，小程序从周活动首页进入；顺序为山海灵宝、破木悟法、鉴石大会。两端共用配置和计算引擎，沿用“材料库存 → 七轮需求 → 宝库兑换”的简洁交互。无需输入击败数或抽取次数。
 
-独立 H5 原型：在 `src/` 下运行 `npm run dev`，访问 http://127.0.0.1:5173 。小程序以 uni-app 页面为准。
+小程序开发产物为 `src/dist/dev/mp-weixin/`，生产产物为 `src/dist/build/mp-weixin/`。在 `src/uni-app/manifest.json` 的 `mp-weixin.appid` 填入微信 AppID 后，用微信开发者工具导入产物。根级 `appid` 为 uni-app 应用标识。当前未完成真机验证。
 
-## 活动扩展
+## 目录
 
-采用“活动首页 → 活动规划页 → 独立计算引擎”的结构。活动注册项包含稳定 ID、名称、状态、路由、材料名称及计算模块。两个待补充活动不启用、不调用破木算法。收到规则后分别增加计算模块及测试、规划页面、`pages.json` 路由，再更新注册项。材料流转和奖励兑换流程可以复用，但只有规则确认一致时才提取公共逻辑，避免假设三个活动消耗相同。
+- `src/config/activities/`：三个活动的可编辑 JSON；商品名称、图片、数量、价格、限购及返还都在这里配置。
+- `src/core/weekly-planner.js`：共用材料流转与两类消耗模型。
+- `src/core/activities.js`：活动注册与页面入口。
+- `src/core/planner.js`：破木原有接口的兼容导出，读取同一份默认配置。
+- `src/uni-app/components/ActivityPlanner.vue`：小程序共用规划页面。
+- `src/uni-app/pages/`：活动首页和三个独立路由。
+- `src/uni-app/static/weekly/`：三类活动的原始资源图片，`sources.json` 记录来源。
+- `src/index.html`、`src/app.js`、`src/style.css`：H5 预览。
+- `data/`：截图、APK 和提取资料，不参与日常运行或构建。
 
-当前资料 JSON 是规则参考，计算引擎尚未直接读取它；调整破木规则时须同步核对两者。
+## 物品轮换与活动配置
+
+修改对应配置的 `shop.goods[].name`、`image`、`amount` 即可替换兑换商品，无需调整页面代码。图片放进 `src/uni-app/static/weekly/`；改完后重新构建小程序。
+
+详细字段、JSON 示例与默认版本选取见 [配置说明](src/config/activities/README.md)。图片通过显式路径配置，修改商品名称不会破坏图片映射。三类活动的任务和商店版本分别记录，不混用初始活动与轮换活动的奖励。
 
 ## 计算边界
 
-已完成任务按奖励已领取处理；宝库从零兑换进度开始规划。补充获取按全部到账计算，不进行逐日排程；木人直接掉落排除。预计用量使用击败木人所需攻击次数的数学期望，不代表达成概率；保守模式每次按 10 伤害计算。缺口以领取奖励前的最大短缺计算。商店锁定层内容仍需实机复核。破木商品、行功散和悟心残页已接入 APK 原始图标；资源位于 `src/uni-app/static/pomu/`，映射来源见其中的 `sources.json`。
+先消耗材料达到任务节点，再领取任务和轮完成奖励。七轮卡片按材料库存计算需求；宝库独立模拟兑换，返还材料在底部展示，不抵扣上方阶段需求。库存只影响缺口，不改变累计材料需求。可用代币只读，由材料库存、所选轮次及上方每周附带数量自动计算。
 
-## APK 资料提取
+破木采用击败敌人所需攻击次数的数学期望，预计值不代表达成概率；保守模式按最低伤害计算。山海与鉴石按实际任务计数计算单次材料消耗；灵宝券库存可填写普通券与限时券的合计。所有活动均不计随机直接掉落，不进行逐日排程，限时券须在本期有效期内使用。
 
-已恢复的技能/道具图鉴、素材位置及伤害计算分析见 [APK 分析记录](docs/apk-analysis.md)。生成资源位于 `data/apk-extracted/`，不直接打包进小程序。
+三个活动的本周附带代币默认均为 42（7 天 × 每天 1 次免费领取和 2 次灵玉购买 × 每次 2 代币），已由 APK 的 `shop_list_info` 核对。数量可自行修改或取消勾选；材料库存填写计划可用总量，不重复增加。本期已有兑换记录暂未支持。
+
+## APK 分析
+
+参见 [技能、道具与伤害分析](docs/apk-analysis.md)、[三个周活动的数据说明](docs/weekly-activities.md)、[限时券与末层兑换依据](docs/weekly-configuration-evidence.md)。分析产物位于 `data/apk-extracted/`，不直接打包到小程序。程序只打包选定配置与 37 张去重后的活动图片。

@@ -1,0 +1,539 @@
+{
+  "id": "shanhai-lingbao",
+  "name": "山海灵宝",
+  "version": {
+    "label": "仙君 · 最新轮换",
+    "activityId": 201101,
+    "drawId": 203,
+    "taskWorldDay": 154,
+    "shopWorldDay": 181,
+    "source": "APK 3122648-57467552-3ee3a5cf8f4ebee4",
+    "weeklyShopIds": [
+      903,
+      904
+    ]
+  },
+  "material": {
+    "type": 2,
+    "resourceId": 1601,
+    "name": "灵宝券",
+    "image": "/static/weekly/2-1601.png"
+  },
+  "currency": {
+    "type": 1,
+    "resourceId": 404,
+    "name": "山海币",
+    "image": "/static/weekly/1-404.png"
+  },
+  "progressLabel": "寻宝次数",
+  "progressUnit": "次",
+  "weeklyBonusCurrency": 42,
+  "defaultStock": 0,
+  "cost": {
+    "kind": "draw",
+    "perAction": 1
+  },
+  "notes": "不计随机直接掉落；已完成档位按奖励已领取处理，宝库按本期尚未兑换规划。",
+  "rounds": [
+    {
+      "round": 1,
+      "stages": [
+        {
+          "progress": 4,
+          "materialReward": 1,
+          "currencyReward": 40
+        },
+        {
+          "progress": 8,
+          "materialReward": 1,
+          "currencyReward": 40
+        },
+        {
+          "progress": 20,
+          "materialReward": 1,
+          "currencyReward": 40
+        },
+        {
+          "progress": 32,
+          "materialReward": 1,
+          "currencyReward": 40
+        },
+        {
+          "progress": 45,
+          "materialReward": 1,
+          "currencyReward": 40
+        },
+        {
+          "progress": 60,
+          "materialReward": 1,
+          "currencyReward": 40
+        }
+      ],
+      "completion": {
+        "materialReward": 0,
+        "currencyReward": 80
+      }
+    },
+    {
+      "round": 2,
+      "stages": [
+        {
+          "progress": 72,
+          "materialReward": 1,
+          "currencyReward": 50
+        },
+        {
+          "progress": 84,
+          "materialReward": 1,
+          "currencyReward": 50
+        },
+        {
+          "progress": 96,
+          "materialReward": 1,
+          "currencyReward": 50
+        },
+        {
+          "progress": 108,
+          "materialReward": 1,
+          "currencyReward": 50
+        },
+        {
+          "progress": 120,
+          "materialReward": 1,
+          "currencyReward": 50
+        },
+        {
+          "progress": 135,
+          "materialReward": 1,
+          "currencyReward": 50
+        }
+      ],
+      "completion": {
+        "materialReward": 5,
+        "currencyReward": 100
+      }
+    },
+    {
+      "round": 3,
+      "stages": [
+        {
+          "progress": 150,
+          "materialReward": 2,
+          "currencyReward": 60
+        },
+        {
+          "progress": 165,
+          "materialReward": 2,
+          "currencyReward": 60
+        },
+        {
+          "progress": 180,
+          "materialReward": 2,
+          "currencyReward": 60
+        },
+        {
+          "progress": 200,
+          "materialReward": 2,
+          "currencyReward": 60
+        },
+        {
+          "progress": 220,
+          "materialReward": 2,
+          "currencyReward": 60
+        },
+        {
+          "progress": 250,
+          "materialReward": 2,
+          "currencyReward": 60
+        }
+      ],
+      "completion": {
+        "materialReward": 10,
+        "currencyReward": 120
+      }
+    },
+    {
+      "round": 4,
+      "stages": [
+        {
+          "progress": 280,
+          "materialReward": 2,
+          "currencyReward": 70
+        },
+        {
+          "progress": 310,
+          "materialReward": 2,
+          "currencyReward": 70
+        },
+        {
+          "progress": 340,
+          "materialReward": 2,
+          "currencyReward": 70
+        },
+        {
+          "progress": 370,
+          "materialReward": 2,
+          "currencyReward": 70
+        },
+        {
+          "progress": 400,
+          "materialReward": 2,
+          "currencyReward": 70
+        },
+        {
+          "progress": 440,
+          "materialReward": 2,
+          "currencyReward": 70
+        }
+      ],
+      "completion": {
+        "materialReward": 0,
+        "currencyReward": 140
+      }
+    },
+    {
+      "round": 5,
+      "stages": [
+        {
+          "progress": 480,
+          "materialReward": 3,
+          "currencyReward": 80
+        },
+        {
+          "progress": 520,
+          "materialReward": 3,
+          "currencyReward": 80
+        },
+        {
+          "progress": 560,
+          "materialReward": 3,
+          "currencyReward": 80
+        },
+        {
+          "progress": 600,
+          "materialReward": 3,
+          "currencyReward": 80
+        },
+        {
+          "progress": 640,
+          "materialReward": 3,
+          "currencyReward": 80
+        },
+        {
+          "progress": 690,
+          "materialReward": 3,
+          "currencyReward": 80
+        }
+      ],
+      "completion": {
+        "materialReward": 0,
+        "currencyReward": 160
+      }
+    },
+    {
+      "round": 6,
+      "stages": [
+        {
+          "progress": 740,
+          "materialReward": 3,
+          "currencyReward": 90
+        },
+        {
+          "progress": 790,
+          "materialReward": 3,
+          "currencyReward": 90
+        },
+        {
+          "progress": 840,
+          "materialReward": 3,
+          "currencyReward": 90
+        },
+        {
+          "progress": 890,
+          "materialReward": 3,
+          "currencyReward": 90
+        },
+        {
+          "progress": 940,
+          "materialReward": 3,
+          "currencyReward": 90
+        },
+        {
+          "progress": 1000,
+          "materialReward": 3,
+          "currencyReward": 90
+        }
+      ],
+      "completion": {
+        "materialReward": 0,
+        "currencyReward": 180
+      }
+    },
+    {
+      "round": 7,
+      "stages": [
+        {
+          "progress": 1060,
+          "materialReward": 3,
+          "currencyReward": 100
+        },
+        {
+          "progress": 1120,
+          "materialReward": 3,
+          "currencyReward": 100
+        },
+        {
+          "progress": 1180,
+          "materialReward": 3,
+          "currencyReward": 100
+        },
+        {
+          "progress": 1240,
+          "materialReward": 3,
+          "currencyReward": 100
+        },
+        {
+          "progress": 1300,
+          "materialReward": 3,
+          "currencyReward": 100
+        },
+        {
+          "progress": 1370,
+          "materialReward": 3,
+          "currencyReward": 100
+        }
+      ],
+      "completion": {
+        "materialReward": 0,
+        "currencyReward": 200
+      }
+    }
+  ],
+  "shop": {
+    "layers": [
+      {
+        "id": 1,
+        "unlock": 0
+      },
+      {
+        "id": 2,
+        "unlock": 100
+      },
+      {
+        "id": 3,
+        "unlock": 300
+      },
+      {
+        "id": 4,
+        "unlock": 600
+      },
+      {
+        "id": 5,
+        "unlock": 1000
+      }
+    ],
+    "goods": [
+      {
+        "id": "0-0",
+        "type": 2,
+        "resourceId": 30201,
+        "name": "升星石",
+        "image": "/static/weekly/2-30201.png",
+        "amount": 200,
+        "layer": 1,
+        "price": 50,
+        "limit": 8,
+        "refund": 1,
+        "sourceId": 19101
+      },
+      {
+        "id": "0-1",
+        "type": 2,
+        "resourceId": 9118227,
+        "name": "山海蓝宝碎片箱六",
+        "image": "/static/weekly/2-9118227.png",
+        "amount": 100,
+        "layer": 1,
+        "price": 50,
+        "limit": 8,
+        "refund": 1,
+        "sourceId": 19102
+      },
+      {
+        "id": "0-2",
+        "type": 2,
+        "resourceId": 30301,
+        "name": "强化粉尘·蓝",
+        "image": "/static/weekly/2-30301.png",
+        "amount": 1000,
+        "layer": 1,
+        "price": 50,
+        "limit": 8,
+        "refund": 1,
+        "sourceId": 19103
+      },
+      {
+        "id": "1-0",
+        "type": 2,
+        "resourceId": 8611,
+        "name": "仙君宝物碎片箱·紫",
+        "image": "/static/weekly/2-8611.png",
+        "amount": 60,
+        "layer": 2,
+        "price": 60,
+        "limit": 5,
+        "refund": 2,
+        "sourceId": 19104
+      },
+      {
+        "id": "1-1",
+        "type": 2,
+        "resourceId": 9118226,
+        "name": "山海紫宝碎片箱六",
+        "image": "/static/weekly/2-9118226.png",
+        "amount": 60,
+        "layer": 2,
+        "price": 60,
+        "limit": 5,
+        "refund": 2,
+        "sourceId": 19105
+      },
+      {
+        "id": "1-2",
+        "type": 2,
+        "resourceId": 30302,
+        "name": "强化粉尘·紫",
+        "image": "/static/weekly/2-30302.png",
+        "amount": 200,
+        "layer": 2,
+        "price": 50,
+        "limit": 5,
+        "refund": 2,
+        "sourceId": 19106
+      },
+      {
+        "id": "2-0",
+        "type": 2,
+        "resourceId": 8610,
+        "name": "仙君宝物碎片箱·橙",
+        "image": "/static/weekly/2-8610.png",
+        "amount": 40,
+        "layer": 3,
+        "price": 100,
+        "limit": 6,
+        "refund": 3,
+        "sourceId": 19107
+      },
+      {
+        "id": "2-1",
+        "type": 2,
+        "resourceId": 9118225,
+        "name": "山海橙宝碎片箱六",
+        "image": "/static/weekly/2-9118225.png",
+        "amount": 40,
+        "layer": 3,
+        "price": 100,
+        "limit": 12,
+        "refund": 3,
+        "sourceId": 19108
+      },
+      {
+        "id": "2-2",
+        "type": 2,
+        "resourceId": 9111913,
+        "name": "山海红宝碎片箱九",
+        "image": "/static/weekly/2-9111913.png",
+        "amount": 30,
+        "layer": 3,
+        "price": 100,
+        "limit": 12,
+        "refund": 3,
+        "sourceId": 19109
+      },
+      {
+        "id": "3-0",
+        "type": 2,
+        "resourceId": 9111913,
+        "name": "山海红宝碎片箱九",
+        "image": "/static/weekly/2-9111913.png",
+        "amount": 60,
+        "layer": 4,
+        "price": 200,
+        "limit": 10,
+        "refund": 4,
+        "sourceId": 19110
+      },
+      {
+        "id": "3-1",
+        "type": 2,
+        "resourceId": 7500,
+        "name": "圣宝灵髓",
+        "image": "/static/weekly/2-7500.png",
+        "amount": 5,
+        "layer": 4,
+        "price": 200,
+        "limit": 2,
+        "refund": 4,
+        "sourceId": 19111
+      },
+      {
+        "id": "3-2",
+        "type": 2,
+        "resourceId": 2126,
+        "name": "金仙红色法则碎片箱",
+        "image": "/static/weekly/2-2126.png",
+        "amount": 40,
+        "layer": 4,
+        "price": 200,
+        "limit": 12,
+        "refund": 4,
+        "sourceId": 19112
+      },
+      {
+        "id": "4-0",
+        "type": 2,
+        "resourceId": 2131,
+        "name": "斩心神通自选",
+        "image": "/static/weekly/2-2131.png",
+        "amount": 1,
+        "layer": 5,
+        "price": 1200,
+        "limit": 2,
+        "refund": 5,
+        "sourceId": 19113
+      },
+      {
+        "id": "4-1",
+        "type": 2,
+        "resourceId": 93106,
+        "name": "道痕结晶",
+        "image": "/static/weekly/2-93106.png",
+        "amount": 1,
+        "layer": 5,
+        "price": 1200,
+        "limit": 2,
+        "refund": 5,
+        "sourceId": 19114
+      },
+      {
+        "id": "4-2",
+        "type": 2,
+        "resourceId": 2125,
+        "name": "净世神通自选",
+        "image": "/static/weekly/2-2125.png",
+        "amount": 1,
+        "layer": 5,
+        "price": 500,
+        "limit": 4,
+        "refund": 5,
+        "sourceId": 19115
+      }
+    ]
+  },
+  "secondaryMaterial": {
+    "type": 2,
+    "resourceId": 1602,
+    "name": "限时灵宝券",
+    "image": "/static/weekly/2-1602.png"
+  }
+}

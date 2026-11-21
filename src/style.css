@@ -7,3 +7,19 @@ header{height:60px}main{max-width:960px}.simple-title{display:flex;align-items:c
 
 /* Original game icons, shared with the mini-program static assets. */
 .item-icon img{width:100%;height:100%;object-fit:contain;display:block}.material-icon{width:28px;height:28px;object-fit:contain;vertical-align:middle;margin-right:6px}
+
+/* Keep the established planner layout; add only activity switching and editable weekly currency. */
+[hidden]{display:none!important}.activity-switch{display:flex;gap:10px;padding-top:20px;flex-wrap:wrap}.activity-switch button{border:1px solid #cbd9cf;border-radius:8px;padding:9px 15px;background:white;color:#54745b;cursor:pointer;font-size:14px}.activity-switch button[aria-pressed=true]{background:#214c3e;color:white}.selected-round{outline:none;border-color:#54745b;box-shadow:inset 0 0 0 1px #54745b}.weekly-currency{width:55px;border:0;border-bottom:1px solid #b5cbb9;background:transparent;color:#315740;font:inherit;font-weight:600;padding:2px}.weekly-option input[type=checkbox]{flex-shrink:0}.round-metric strong small{font-size:11px}#restore-wallet{font-size:12px;padding:0 4px}.wallet input{cursor:text}@media(max-width:600px){.activity-switch{gap:8px}.activity-switch button{flex:1;padding:10px 6px}.weekly-option{flex-wrap:wrap;gap:4px}.weekly-currency{width:48px}}
+.weekly-option .weekly-currency{width:52px;height:24px;min-width:44px;flex-shrink:0;padding:2px 4px}
+
+/* Focus belongs to the existing field container; selected cards draw inside the scroll area. */
+input[type=number]{appearance:textfield;-moz-appearance:textfield}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.stock-box input:focus,.stock-box input:focus-visible,.wallet input:focus,.wallet input:focus-visible,.weekly-option .weekly-currency:focus,.weekly-option .weekly-currency:focus-visible{outline:none;box-shadow:none}
+.stock-box:focus-within,.wallet:focus-within{border-color:#7c9f88;background:#eff6f0}
+.weekly-option .weekly-currency:focus{border-bottom-color:#54745b;background:#eff6f0;border-radius:3px}
+.round-card:focus-visible{outline:2px solid #ad854a;outline-offset:-4px}
+.wallet label{display:flex;align-items:center;min-width:0;gap:4px}.wallet input{min-width:50px;max-width:110px;margin-left:4px;flex:1}.wallet>span{flex-shrink:0;margin-left:8px}.wallet #wallet-label{white-space:nowrap}.item-name{overflow-wrap:anywhere}
+@media(max-width:360px){.inventory-line label{font-size:13px}.inventory-line .stock-box{max-width:120px}.wallet{padding:7px 9px}.wallet label{font-size:12px;flex:1}.wallet input{width:60px;max-width:75px;font-size:21px}.wallet>span{font-size:10px;margin-left:5px}.material-icon{width:23px;height:23px;margin-right:3px}}
+
+.wallet input[readonly]{cursor:default;outline:none;caret-color:transparent}.wallet:has(input[readonly]):focus-within{border-color:#bfcfbe;background:#e5eee5}

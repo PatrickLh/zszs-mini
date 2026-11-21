@@ -12,6 +12,18 @@
       "style": {
         "navigationBarTitleText": "破木悟法 · 修行筹算"
       }
+    },
+    {
+      "path": "pages/shanhai/index",
+      "style": {
+        "navigationBarTitleText": "山海灵宝 · 修行筹算"
+      }
+    },
+    {
+      "path": "pages/jianshi/index",
+      "style": {
+        "navigationBarTitleText": "鉴石大会 · 修行筹算"
+      }
     }
   ],
   "globalStyle": {

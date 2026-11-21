@@ -1,0 +1,61 @@
+# 周活动配置
+
+H5 和 uni-app 共用这些配置，默认取当前 APK 的最新仙君轮换版本。
+
+| 文件 | 活动 | 任务版本 `world_day` | 宝库版本 `world_day` | 抽取入口 `draw_id` |
+| --- | --- | ---: | ---: | ---: |
+| `pomu.json` | 破木悟法 | 154 | 181 | 0 |
+| `shanhai.json` | 山海灵宝 | 154 | 181 | 203（灵仙阁） |
+| `jianshi.json` | 鉴石大会 | 167 | 181 | 302 |
+
+这里的版本编号来自 APK，不代表系统实时获取了服务器当期配置。后续轮换可直接编辑文件，无需改页面或计算引擎。
+
+## 只替换兑换物品
+
+在对应文件的 `shop.goods` 中找到商品，修改 `name`、`image`、`amount`：
+
+```json
+{
+  "id": "0-0",
+  "name": "下一期兑换宝物",
+  "image": "/static/weekly/new-reward.png",
+  "amount": 20,
+  "layer": 1,
+  "price": 50,
+  "limit": 3,
+  "refund": 1
+}
+```
+
+将图片放到 `src/uni-app/static/weekly/new-reward.png`。`image` 使用以 `/static/` 开头的路径，H5 会自动转换到共享图片目录。
+
+- `name`：显示名称，名称改变不会影响图片或计算。
+- `image`：显式图片路径，独立于名称与资源 ID。
+- `amount`：每次兑换获得的商品数量。
+- `id`：活动内唯一的兑换槽位 ID；仅更换商品时可保留。
+- `layer`：所属层，与 `shop.layers[].id` 对应。
+- `price`：每次兑换消耗的活动兑换币。
+- `limit`：本期最多兑换次数。
+- `refund`：每次兑换返还的活动材料数量。
+- `resourceId`、`type`、`sourceId`：可选溯源信息，不参与计算。手工换物品时可以同步修改或删除。
+
+只改名称、图片和数量不会改变材料规划；价格、限购与返还变化则会影响计算。`shop.layers[].unlock` 是累计消耗兑换币的解锁门槛。商品在同一层内按文件顺序模拟兑换，不自动购买填充门槛的商品。
+
+修改后在 `src/` 运行 `npm test` 和 `npm run build:mp-weixin`，再导入 `dist/build/mp-weixin/`。H5 刷新页面读取新配置。
+
+## 阶段与消耗规则
+
+- `material`、`currency`：活动材料和兑换币的名称、图片。
+- `secondaryMaterial`：可合并消耗的第二种材料，目前用于限时灵宝券。
+- `rounds[].stages[].progress`：从活动开始累计的目标进度，不是本轮增量。
+- `materialReward`、`currencyReward`：每档领取的材料返还和兑换币。
+- `rounds[].completion`：完成该轮的额外奖励，与最后一档奖励相加且只领取一次。
+- `cost.kind="combat"`：按生命、普通/暴击伤害、概率计算每个敌人的预计消耗；保守模式按最低伤害计算。
+- `cost.kind="draw"`：每个任务计数单位消耗 `perAction` 份材料，目前山海、鉴石均为 1。
+- `weeklyBonusCurrency`：可选的本周额外兑换币。三个活动默认均为 42（每天免费 1 次与购买 2 次，每次附带 2 代币，共 7 天），数量可在页面自行调整，不重复增加已填材料库存。
+
+页面只填写材料库存，自动展示七轮需求，不要求填写阶段进度。宝库余额只读、自动计算；勾选本周代币时默认计入 42，也可调整数量。七轮材料需求与宝库兑换独立计算，兑换返还在宝库底部展示。随机直接掉落、逐日到账顺序和本期已兑换记录暂不模拟。
+
+## 溯源和重新生成
+
+`tools/generate_weekly_defaults.py` 可从本地 APK 分析产物重新生成这三份默认配置与资源图。它会覆盖手工轮换修改，因此不放入日常构建命令。正常维护只需编辑 JSON；运行小程序或构建不依赖 `data/`、Python 或反编译工具。
