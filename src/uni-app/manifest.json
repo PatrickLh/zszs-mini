@@ -1,1 +1,11 @@
-{"name":"宗师之上修行筹算","appid":"","versionName":"0.1.0","versionCode":"100","vueVersion":"3","mp-weixin":{"appid":"","setting":{"urlCheck":false}}}
+{
+  "name": "宗师之上修行筹算",
+  "appid": "wx00950337e2301fe9",
+  "versionName": "0.1.0",
+  "versionCode": "100",
+  "vueVersion": "3",
+  "mp-weixin": {
+    "appid": "wx00950337e2301fe9",
+    "setting": { "urlCheck": false }
+  }
+}
