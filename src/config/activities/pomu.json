@@ -533,5 +533,112 @@
         "sourceId": 12430
       }
     ]
-  }
+  },
+  "paidPacks": [
+    {
+      "id": "1601",
+      "name": "悟法特惠礼包",
+      "price": 6,
+      "material": 10,
+      "currency": 10,
+      "limit": 3,
+      "source": {
+        "rechargeId": 1601,
+        "productId": "com.zszs.cn.yb6",
+        "limitType": 4,
+        "file": "recharge_info_1.json",
+        "row": "337"
+      }
+    },
+    {
+      "id": "1602",
+      "name": "悟法超值礼包",
+      "price": 30,
+      "material": 20,
+      "currency": 30,
+      "limit": 2,
+      "source": {
+        "rechargeId": 1602,
+        "productId": "com.zszs.cn.yb30",
+        "limitType": 4,
+        "file": "recharge_info_1.json",
+        "row": "338"
+      }
+    },
+    {
+      "id": "1603",
+      "name": "悟法精选礼包",
+      "price": 68,
+      "material": 40,
+      "currency": 50,
+      "limit": 2,
+      "source": {
+        "rechargeId": 1603,
+        "productId": "com.zszs.cn.yb68",
+        "limitType": 4,
+        "file": "recharge_info_1.json",
+        "row": "339"
+      }
+    },
+    {
+      "id": "1604",
+      "name": "悟法助力礼包",
+      "price": 128,
+      "material": 50,
+      "currency": 100,
+      "limit": 5,
+      "source": {
+        "rechargeId": 1604,
+        "productId": "com.zszs.cn.yb128",
+        "limitType": 4,
+        "file": "recharge_info_1.json",
+        "row": "340"
+      }
+    },
+    {
+      "id": "1605",
+      "name": "悟法豪华礼包",
+      "price": 198,
+      "material": 60,
+      "currency": 120,
+      "limit": 5,
+      "source": {
+        "rechargeId": 1605,
+        "productId": "com.zszs.cn.yb198",
+        "limitType": 4,
+        "file": "recharge_info_1.json",
+        "row": "341"
+      }
+    },
+    {
+      "id": "1606",
+      "name": "悟法史诗礼包",
+      "price": 328,
+      "material": 80,
+      "currency": 160,
+      "limit": 10,
+      "source": {
+        "rechargeId": 1606,
+        "productId": "com.zszs.cn.yb328",
+        "limitType": 4,
+        "file": "recharge_info_1.json",
+        "row": "342"
+      }
+    },
+    {
+      "id": "1607",
+      "name": "悟法尊享礼包",
+      "price": 648,
+      "material": 100,
+      "currency": 300,
+      "limit": 12,
+      "source": {
+        "rechargeId": 1607,
+        "productId": "com.zszs.cn.yb648",
+        "limitType": 4,
+        "file": "recharge_info_1.json",
+        "row": "343"
+      }
+    }
+  ]
 }

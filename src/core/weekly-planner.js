@@ -27,6 +27,12 @@ export function validateActivity(config) {
     check(!layers.has(layer.id) && nonnegative(layer.unlock), '宝库层数或门槛无效'); layers.add(layer.id);
   }
   const ids = new Set();
+  const packIds = new Set();
+  for (const pack of config.paidPacks || []) {
+    check(typeof pack.id === 'string' && pack.id.length > 0 && !packIds.has(pack.id), '礼包 ID 为空或重复'); packIds.add(pack.id);
+    check(pack.name && Number.isSafeInteger(pack.price) && pack.price > 0, '礼包名称或价格无效');
+    check(nonnegative(pack.material) && nonnegative(pack.currency) && nonnegative(pack.limit), '礼包材料、代币或限购无效');
+  }
   for (const g of config.shop.goods) {
     check(!ids.has(g.id) && layers.has(g.layer), '商品 ID 重复或所属层不存在'); ids.add(g.id);
     check(g.name && typeof g.image === 'string' && g.image.length > 0, '商品名称或图片为空');

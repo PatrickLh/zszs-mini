@@ -529,5 +529,112 @@
         "sourceId": 13120
       }
     ]
-  }
+  },
+  "paidPacks": [
+    {
+      "id": "1901",
+      "name": "鉴石特惠礼包",
+      "price": 6,
+      "material": 5,
+      "currency": 10,
+      "limit": 3,
+      "source": {
+        "rechargeId": 1901,
+        "productId": "com.zszs.cn.yb6",
+        "limitType": 4,
+        "file": "recharge_info_1.json",
+        "row": "358"
+      }
+    },
+    {
+      "id": "1902",
+      "name": "鉴石超值礼包",
+      "price": 30,
+      "material": 10,
+      "currency": 30,
+      "limit": 2,
+      "source": {
+        "rechargeId": 1902,
+        "productId": "com.zszs.cn.yb30",
+        "limitType": 4,
+        "file": "recharge_info_1.json",
+        "row": "359"
+      }
+    },
+    {
+      "id": "1903",
+      "name": "鉴石精选礼包",
+      "price": 68,
+      "material": 20,
+      "currency": 50,
+      "limit": 2,
+      "source": {
+        "rechargeId": 1903,
+        "productId": "com.zszs.cn.yb68",
+        "limitType": 4,
+        "file": "recharge_info_1.json",
+        "row": "360"
+      }
+    },
+    {
+      "id": "1904",
+      "name": "鉴石助力礼包",
+      "price": 128,
+      "material": 25,
+      "currency": 100,
+      "limit": 5,
+      "source": {
+        "rechargeId": 1904,
+        "productId": "com.zszs.cn.yb128",
+        "limitType": 4,
+        "file": "recharge_info_1.json",
+        "row": "361"
+      }
+    },
+    {
+      "id": "1905",
+      "name": "鉴石豪华礼包",
+      "price": 198,
+      "material": 30,
+      "currency": 120,
+      "limit": 5,
+      "source": {
+        "rechargeId": 1905,
+        "productId": "com.zszs.cn.yb198",
+        "limitType": 4,
+        "file": "recharge_info_1.json",
+        "row": "362"
+      }
+    },
+    {
+      "id": "1906",
+      "name": "鉴石史诗礼包",
+      "price": 328,
+      "material": 40,
+      "currency": 160,
+      "limit": 10,
+      "source": {
+        "rechargeId": 1906,
+        "productId": "com.zszs.cn.yb328",
+        "limitType": 4,
+        "file": "recharge_info_1.json",
+        "row": "363"
+      }
+    },
+    {
+      "id": "1907",
+      "name": "鉴石尊享礼包",
+      "price": 648,
+      "material": 50,
+      "currency": 300,
+      "limit": 12,
+      "source": {
+        "rechargeId": 1907,
+        "productId": "com.zszs.cn.yb648",
+        "limitType": 4,
+        "file": "recharge_info_1.json",
+        "row": "364"
+      }
+    }
+  ]
 }

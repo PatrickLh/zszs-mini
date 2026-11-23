@@ -535,5 +535,112 @@
     "resourceId": 1602,
     "name": "限时灵宝券",
     "image": "/static/weekly/2-1602.png"
-  }
+  },
+  "paidPacks": [
+    {
+      "id": "1701",
+      "name": "灵宝特惠礼包",
+      "price": 6,
+      "material": 5,
+      "currency": 10,
+      "limit": 3,
+      "source": {
+        "rechargeId": 1701,
+        "productId": "com.zszs.cn.yb6",
+        "limitType": 4,
+        "file": "recharge_info_1.json",
+        "row": "344"
+      }
+    },
+    {
+      "id": "1702",
+      "name": "灵宝超值礼包",
+      "price": 30,
+      "material": 10,
+      "currency": 30,
+      "limit": 2,
+      "source": {
+        "rechargeId": 1702,
+        "productId": "com.zszs.cn.yb30",
+        "limitType": 4,
+        "file": "recharge_info_1.json",
+        "row": "345"
+      }
+    },
+    {
+      "id": "1703",
+      "name": "灵宝精选礼包",
+      "price": 68,
+      "material": 20,
+      "currency": 50,
+      "limit": 2,
+      "source": {
+        "rechargeId": 1703,
+        "productId": "com.zszs.cn.yb68",
+        "limitType": 4,
+        "file": "recharge_info_1.json",
+        "row": "346"
+      }
+    },
+    {
+      "id": "1704",
+      "name": "灵宝助力礼包",
+      "price": 128,
+      "material": 25,
+      "currency": 100,
+      "limit": 5,
+      "source": {
+        "rechargeId": 1704,
+        "productId": "com.zszs.cn.yb128",
+        "limitType": 4,
+        "file": "recharge_info_1.json",
+        "row": "347"
+      }
+    },
+    {
+      "id": "1705",
+      "name": "灵宝豪华礼包",
+      "price": 198,
+      "material": 30,
+      "currency": 120,
+      "limit": 5,
+      "source": {
+        "rechargeId": 1705,
+        "productId": "com.zszs.cn.yb198",
+        "limitType": 4,
+        "file": "recharge_info_1.json",
+        "row": "348"
+      }
+    },
+    {
+      "id": "1706",
+      "name": "灵宝史诗礼包",
+      "price": 328,
+      "material": 40,
+      "currency": 160,
+      "limit": 10,
+      "source": {
+        "rechargeId": 1706,
+        "productId": "com.zszs.cn.yb328",
+        "limitType": 4,
+        "file": "recharge_info_1.json",
+        "row": "349"
+      }
+    },
+    {
+      "id": "1707",
+      "name": "灵宝尊享礼包",
+      "price": 648,
+      "material": 50,
+      "currency": 300,
+      "limit": 12,
+      "source": {
+        "rechargeId": 1707,
+        "productId": "com.zszs.cn.yb648",
+        "limitType": 4,
+        "file": "recharge_info_1.json",
+        "row": "350"
+      }
+    }
+  ]
 }
