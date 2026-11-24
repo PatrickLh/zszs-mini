@@ -1,4 +1,4 @@
-<template><ActivityPlanner activity-id="pomu-wufa"/></template>
+<template><WeeklyPlanner initial-activity="pomu-wufa"/></template>
 <script setup>
-import ActivityPlanner from '../../components/ActivityPlanner.vue';
+import WeeklyPlanner from '../../components/WeeklyPlanner.vue';
 </script>

@@ -1,4 +1,4 @@
-<template><ActivityPlanner activity-id="jianshi-dahui"/></template>
+<template><WeeklyPlanner initial-activity="jianshi-dahui"/></template>
 <script setup>
-import ActivityPlanner from '../../components/ActivityPlanner.vue';
+import WeeklyPlanner from '../../components/WeeklyPlanner.vue';
 </script>
