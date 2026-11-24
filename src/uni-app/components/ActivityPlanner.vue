@@ -9,7 +9,7 @@
     <text>+</text><text>剩余活动天数</text><input class="weekly-input" type="number" :value="state.remainingDays" @input="setStart('remainingDays',$event)"/>
    </view>
    <view class="hint">剩余天数包含今天尚未领取的次数。勾选后计入每日免费 1 个道具、两次灵玉购买的 6 个道具，以及附带的兑换币。材料库存填写当前持有量{{config.secondaryMaterial?'（含限时券）':''}}，已完成阶段奖励按已领取处理。</view>
-   <view class="material-total">本次活动可用 <text class="activity-material-number">{{state.stock + futureMaterial}}</text> = 当前拥有 {{state.stock}} + 剩余天数可获得 {{futureMaterial}}</view>
+   <view class="material-total activity-material-total">本次活动可用 <text class="activity-material-number">{{state.stock + futureMaterial}}</text> = 当前拥有 {{state.stock}} + 剩余天数可获得 {{futureMaterial}}</view>
    <view class="progress-setting"><text>已完成阶段</text><picker :range="progressOptions" range-key="label" :value="progressIndex" @change="setProgress"><view class="start-picker"><text class="start-picker-label">{{progressOptions[progressIndex].label}}</text><view class="start-picker-arrow"/></view></picker></view>
    <view class="paid-planning">
     <view class="paid-heading"><view class="paid-heading-title" @click="showPaid=!showPaid"><view :class="['paid-chevron',{expanded:showPaid}]"/><text>付费礼包</text><text class="paid-toggle-label">{{showPaid?'收起':'展开'}}</text></view><view class="paid-heading-actions"><text>{{view.paid.count?'¥'+view.paid.money+' · '+view.paid.count+'份':'未选择 · 可选'}}</text><text v-if="view.paid.count" @click="clearPaid">清空组合</text></view></view>
@@ -87,5 +87,6 @@ function change(g,delta){const current=state.purchases[g.id]||0;if(delta>0&&(vie
 
 .progress-setting{display:flex;align-items:center;gap:10px;font-size:12px}.progress-setting picker{flex:1;min-width:0}.start-picker{height:38px;padding:5px 8px;border:1px solid #dbe5db;border-radius:7px;background:#fff;color:#315740}.start-picker{position:relative;display:flex;align-items:center;padding-right:26px;font-size:11px}.start-picker-label{display:block;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.start-picker-arrow{position:absolute;top:50%;right:11px;width:6px;height:6px;border-right:1.5px solid #78927c;border-bottom:1.5px solid #78927c;transform:translateY(-70%) rotate(45deg);pointer-events:none}.start-note{font-size:10px;color:#8c9988;line-height:18px}
 .round-divider{margin:12px 0 0;border-top:1px solid #dce7de}
+.activity-material-total{margin-bottom:12px}
 .activity-material-number{font-size:22px;font-weight:600;color:#315740;font-variant-numeric:tabular-nums}
 </style>
