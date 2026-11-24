@@ -63,6 +63,8 @@ export function createPlanner(config) {
   const attackCost = (mode, health = config.cost.hp) => {
     const c = config.cost;
     if (c.kind === 'draw') return c.perAction;
+    const attacksPerEnemy = mode === 'safe' ? c.safeAttacksPerEnemy : c.expectedAttacksPerEnemy;
+    if (health === c.hp && attacksPerEnemy !== undefined) return attacksPerEnemy * c.perAttack;
     return (mode === 'safe' ? Math.ceil(health / Math.min(c.damage, c.criticalDamage)) : expectedAttacks(health, c)) * c.perAttack;
   };
   function simulate({ stock = 0, secondaryStock = 0, currency = 0, progress = 0, selected = {}, mode = 'expected', health } = {}) {

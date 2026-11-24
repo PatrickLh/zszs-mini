@@ -28,14 +28,18 @@
   "progressLabel": "击败数",
   "progressUnit": "个敌人",
   "weeklyBonusCurrency": 42,
-  "defaultStock": 330,
+  "dailyFreeMaterial": 1,
+  "dailyPurchaseMaterial": 6,
+  "defaultStock": 0,
   "cost": {
     "kind": "combat",
     "hp": 60,
     "damage": 10,
     "criticalDamage": 20,
     "criticalProbability": 0.2,
-    "perAttack": 1
+    "perAttack": 1,
+    "expectedAttacksPerEnemy": 4,
+    "safeAttacksPerEnemy": 6
   },
   "notes": "不计随机直接掉落；已完成档位按奖励已领取处理，宝库按本期尚未兑换规划。",
   "rounds": [

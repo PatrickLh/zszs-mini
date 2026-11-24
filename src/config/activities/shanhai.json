@@ -28,6 +28,8 @@
   "progressLabel": "寻宝次数",
   "progressUnit": "次",
   "weeklyBonusCurrency": 42,
+  "dailyFreeMaterial": 1,
+  "dailyPurchaseMaterial": 6,
   "defaultStock": 0,
   "cost": {
     "kind": "draw",

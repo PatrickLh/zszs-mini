@@ -1,6 +1,6 @@
 // The simple UI plans materials first and simulates treasury spending separately.
 export function createPreviewState(config) {
-  return { stock: config.defaultStock, weekly: true, weeklyCurrency: config.weeklyBonusCurrency,
+  return { stock: 0, progress: 0, currentCurrency: 0, remainingDays: 7, weekly: true, weeklyCurrency: config.weeklyBonusCurrency,
     preview: null, purchases: {}, paidPacks: {} };
 }
 export function paidPackTotals(config, counts = {}) {
@@ -26,19 +26,25 @@ export function resetPreview(state) {
 export function activityPreview(planner, state) {
   const stock = Math.max(0, Math.min(1e9, Math.trunc(Number(state.stock) || 0)));
   const paid = paidPackTotals(planner.config, state.paidPacks);
-  const totalStock = stock + paid.material;
-  const result = planner.simulate({stock: totalStock});
-  const safe = planner.config.cost.kind === 'combat' ? planner.simulate({stock: totalStock, mode:'safe'}) : result;
+  const progress = Math.max(0, Math.min(planner.maximum, Math.trunc(Number(state.progress) || 0)));
+  const remainingDays = state.weekly ? Math.max(0, Math.min(7, Math.trunc(Number(state.remainingDays) || 0))) : 0;
+  const futureFree = remainingDays * (planner.config.dailyFreeMaterial ?? 1);
+  const futurePurchased = remainingDays * (planner.config.dailyPurchaseMaterial ?? 0);
+  const futureMaterial = futureFree + futurePurchased;
+  const currentCurrency = Math.max(0, Math.trunc(Number(state.currentCurrency) || 0));
+  const totalStock = stock + paid.material + futureMaterial;
+  const result = planner.simulate({stock: totalStock, progress});
+  const safe = planner.config.cost.kind === 'combat' ? planner.simulate({stock: totalStock, progress, mode:'safe'}) : result;
   const reachable = result.rows.filter(r => r.gap === 0).at(-1);
   const row = state.preview === null ? reachable : result.rows.find(r => r.progress === state.preview);
-  const base = state.weekly ? Math.max(0, Math.trunc(Number(state.weeklyCurrency) || 0)) : 0;
+  const base = Math.max(0, Math.trunc((Number(state.weeklyCurrency) || 0) * remainingDays / 7));
   const earned = row?.currency || 0;
-  const budget = earned + base + paid.currency;
-  const beforePaid = paid.material ? planner.simulate({stock}).rows.filter(r => r.gap === 0).at(-1) : reachable;
+  const budget = currentCurrency + earned + base + paid.currency;
+  const beforePaid = paid.material ? planner.simulate({stock: stock + futureMaterial, progress}).rows.filter(r => r.gap === 0).at(-1) : reachable;
   const paidTaskCurrency = (reachable?.currency || 0) - (beforePaid?.currency || 0);
   const spent = planner.goods.reduce((sum, g) => sum + (state.purchases[g.id] || 0) * g.price, 0);
   const refund = planner.goods.reduce((sum, g) => sum + (state.purchases[g.id] || 0) * g.refund, 0);
-  return {rows: result.rows, safeRows: safe.rows, base, earned, spent, refund, budget,
+  return {futureFree, futurePurchased, currentCurrency, progress, rows: result.rows, safeRows: safe.rows, base, earned, spent, refund, budget,
     paid, totalStock, paidTaskCurrency, reachableCurrency: reachable?.currency || 0,
     previewGap: row?.gap || 0, wallet: Math.max(0, budget - spent)};
 }

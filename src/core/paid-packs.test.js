@@ -15,20 +15,20 @@ test('matching APK activities share direct currency but retain their own materia
 });
 test('a selected pack grants direct coins once and its materials earn task coins at reachable stages',()=>{
  for(const config of activityConfigs){
-  const planner=createPlanner(config),state=createPreviewState(config);state.stock=0;
+  const planner=createPlanner(config),state=createPreviewState(config);state.stock=0;state.remainingDays=0;
   setPaidPack(config,state,config.paidPacks[0].id,1);
   const view=activityPreview(planner,state);
   assert.equal(view.paid.money,6);assert.equal(view.paid.currency,10);
-  assert.equal(view.earned,40);assert.equal(view.paidTaskCurrency,40);assert.equal(view.wallet,92);
+  assert.equal(view.earned,40);assert.equal(view.paidTaskCurrency,40);assert.equal(view.wallet,50);
   assert.equal(state.stock,0);assert.equal(view.totalStock,config.paidPacks[0].material);
  }
 });
 test('combined price tiers move material thresholds without converting leftover materials at a fixed rate',()=>{
- const config=getActivityConfig('shanhai-lingbao'),planner=createPlanner(config),state=createPreviewState(config);state.stock=0;
+ const config=getActivityConfig('shanhai-lingbao'),planner=createPlanner(config),state=createPreviewState(config);state.stock=0;state.remainingDays=0;
  setPaidPack(config,state,config.paidPacks[0].id,1);setPaidPack(config,state,config.paidPacks[1].id,1);
  const view=activityPreview(planner,state);
  assert.equal(view.paid.money,36);assert.equal(view.totalStock,15);assert.equal(view.paid.currency,40);
- assert.equal(view.earned,80);assert.equal(view.paidTaskCurrency,80);assert.equal(view.wallet,162);
+ assert.equal(view.earned,80);assert.equal(view.paidTaskCurrency,80);assert.equal(view.wallet,120);
  const plain=planner.simulate({stock:0}).rows;
  assert.deepEqual(view.rows.map(r=>r.required),plain.map(r=>r.required));
 });
@@ -42,15 +42,15 @@ test('paid input is capped to the configured limits and ignores unknown pack IDs
 });
 test('changing a combination clears hypothetical rounds and stale exchanges while keeping existing stock',()=>{
  const config=getActivityConfig('pomu-wufa'),state=createPreviewState(config);
- state.preview=15;state.purchases={'0-0':3};setPaidPack(config,state,config.paidPacks[0].id,1);
+ state.stock=330;state.preview=15;state.purchases={'0-0':3};setPaidPack(config,state,config.paidPacks[0].id,1);
  assert.equal(state.preview,null);assert.deepEqual(state.purchases,{});assert.equal(state.stock,330);
  resetPreview(state);assert.equal(state.paidPacks[config.paidPacks[0].id],1);
 });
 test('hypothetical round preview adds direct pack coins and flags the remaining shortfall',()=>{
- const config=getActivityConfig('shanhai-lingbao'),planner=createPlanner(config),state=createPreviewState(config);state.stock=0;
+ const config=getActivityConfig('shanhai-lingbao'),planner=createPlanner(config),state=createPreviewState(config);state.stock=0;state.remainingDays=0;
  setPaidPack(config,state,config.paidPacks[0].id,1);state.preview=60;state.purchases={'0-0':1};
  const view=activityPreview(planner,state);
- assert.equal(view.budget,372);assert.equal(view.spent,50);assert.equal(view.wallet,322);
+ assert.equal(view.budget,330);assert.equal(view.spent,50);assert.equal(view.wallet,280);
  assert.equal(view.previewGap,50);assert.equal(view.paidTaskCurrency,40);
 });
 test('no combinations preserves the zero-spend result and clearing restores material-linked currency',()=>{
