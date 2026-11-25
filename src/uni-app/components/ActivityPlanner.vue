@@ -19,12 +19,14 @@
    </view>
    <view v-if="view.paid.count" class="material-total">原有库存 {{state.stock}} + 后续免费 {{view.futureFree}} + 灵玉购买 {{view.futurePurchased}} + 礼包 {{view.paid.material}} = 可用{{config.material.name}} {{view.totalStock}}</view>
    <view class="round-divider"/>
-   <scroll-view scroll-x class="round-scroll"><view class="round-list"><view v-for="r in endpoints" :key="r.progress" :class="['round-card',{'selected-round':state.preview===r.progress}]" @click="selectRound(r.progress)"><view class="round-title">第 {{r.round}} 轮<text v-if="!r.gap">预计可达</text></view><view class="metric"><text>{{isCombat?'预计需':'累计净需'}}</text><text class="number">{{r.required}}</text></view><view v-if="isCombat" class="metric"><text>保守需</text><text class="number">{{safeFor(r).required}}</text></view><view class="metric currency-metric"><text>累计{{config.currency.name}}</text><text>{{r.currency+view.base+view.paid.currency}}</text></view><view class="refund-note">阶段累计返还 {{r.refund}} {{config.material.name}}（已计入需求）</view><view v-if="!r.gap" class="refund-note">达成后预计剩余 {{r.remaining}} {{config.material.name}}</view><view :class="['gap',r.gap?'short':'enough']">{{r.gap?'预计还差 '+r.gap:'当前材料预计足够'}}</view></view></view></scroll-view>
-   <view class="hint">需求已计入前序阶段返还；先达成再领取，不提前借用。左右滑动查看轮次 · 点击预览该轮兑换币</view>
+   <view class="material-total" v-if="view.nextStage">预计可达 {{config.progressLabel}} <text class="reachable-number">{{view.reachableProgress}}</text>{{config.progressUnit}} · 下一阶段（第 <text class="reachable-number">{{view.nextStage.progress}}</text>{{config.progressUnit}}）还差 <text class="reachable-number">{{view.nextStage.gap}}</text> 个{{config.material.name}}</view>
+   <view class="material-total" v-else>全部阶段已完成或预计可达</view>
+   <scroll-view scroll-x class="round-scroll"><view class="round-list"><view v-for="r in endpoints" :key="r.progress" :class="['round-card',{'selected-round':state.preview===r.progress}]" @click="selectRound(r.progress)"><view class="round-title">第 {{r.round}} 轮<text v-if="!r.gap">预计可达</text></view><view class="metric"><text>{{isCombat?'所需（预计）':'所需'}}</text><text class="number">{{r.cost}}</text></view><view v-if="isCombat" class="metric"><text>保守总耗</text><text class="number">{{safeFor(r).cost}}</text></view><view class="metric currency-metric"><text>累计{{config.currency.name}}</text><text>{{r.currency+view.base+view.paid.currency}}</text></view><view class="refund-note">达成后累计返还 {{r.refund}} {{config.material.name}}</view><view v-if="!r.gap" class="refund-note">达成后预计剩余 {{r.remaining}} {{config.material.name}}</view><view :class="['gap',r.gap?'short':'enough']">{{r.gap?'当前道具不足以完成本轮':'当前材料预计足够'}}</view></view></view></scroll-view>
+   <view class="hint">轮次所需为从当前进度到该轮结束的总消耗。缺口按先达成、再领取返还计算。左右滑动查看轮次 · 点击轮次填入所需库存并预览兑换币</view>
   </view>
   <view v-if="showHelp" class="card"><view class="heading">计算说明</view><view class="hint">{{costNote}} 先达到节点再领取奖励，不计随机直接掉落。宝库独立模拟，兑换返还在底部展示，未抵扣上方阶段需求。可用代币由上方材料库存、所选轮次、每周附带数量及礼包组合自动计算。</view></view>
   <view class="page-heading"><view class="heading">活动宝库</view><text class="help" @click="state.purchases={}">重置兑换</text></view>
-  <view class="wallet"><view class="resource-label"><image class="material-icon" :src="config.currency.image" mode="aspectFit"/><text>{{state.preview===null?'预计可用':'达成目标后可用'}}{{config.currency.name}}</text></view><text class="wallet-value">{{view.wallet}}</text><text>已消耗 {{view.spent}}</text></view>
+  <view class="wallet"><view class="resource-label"><image class="material-icon" :src="config.currency.image" mode="aspectFit"/></view><text class="wallet-value" :aria-label="'预计可用'+config.currency.name+view.wallet">{{view.wallet}}</text><text>已消耗 {{view.spent}}</text></view>
   <view class="hint">{{state.preview===null?'预计完成任务后获得':'达成所选轮次后获得'}} {{view.earned}} + 当前余额 {{view.currentCurrency}} + 后续附带 {{view.base}} + 礼包直接 {{view.paid.currency}} − 已兑换 {{view.spent}}<text v-if="state.preview!==null&&view.previewGap">。所选目标仍差 {{view.previewGap}} {{config.material.name}}</text></view>
   <view v-for="l in config.shop.layers" :key="l.id" :class="['card shop-layer',{locked:view.spent<l.unlock}]">
    <view class="layer-heading">第{{l.id}}层<text>每次兑换额外获得{{config.material.name}}</text></view>
@@ -38,7 +40,7 @@
 import {reactive,computed,ref} from 'vue';
 import {getActivityConfig} from '../../config/activities/index.js';
 import {createPlanner} from '../../core/weekly-planner.js';
-import {createPreviewState,activityPreview,resetPreview,setPaidPack} from '../../core/activity-preview.js';
+import {createPreviewState,activityPreview,resetPreview,setPaidPack,selectRoundTarget} from '../../core/activity-preview.js';
 const props=defineProps({activityId:{type:String,required:true}});
 const config=getActivityConfig(props.activityId),planner=createPlanner(config),isCombat=config.cost.kind==='combat';
 const state=reactive(createPreviewState(config)),showHelp=ref(false),showPaid=ref(false);
@@ -55,7 +57,7 @@ const goodsFor=layer=>planner.goods.filter(g=>g.layer===layer);
 const costNote=isCombat?`破木预计每个敌人消耗 ${planner.attackCost('expected')} 个${config.material.name}。保守按每个敌人 ${planner.attackCost('safe') / config.cost.perAttack} 次攻击计算，每次消耗 ${config.cost.perAttack} 个${config.material.name}。预计值用于规划，实际消耗随暴击变化。`:`每次消耗${config.cost.perAction}${config.material.name}。`;
 function setStock(e){state.stock=num(e.detail.value);resetPreview(state)}
 function setWeekly(e){state.weekly=e.detail.value.includes('weekly');resetPreview(state)}
-function selectRound(progress){state.preview=progress;state.purchases={}}
+function selectRound(progress){selectRoundTarget(state,view.value,progress)}
 function changePack(pack,delta){setPaidPack(config,state,pack.id,(view.value.paid.counts[pack.id]||0)+delta)}
 function setPackCount(pack,e){setPaidPack(config,state,pack.id,e.detail.value)}
 function clearPaid(){state.paidPacks={};resetPreview(state)}
@@ -89,4 +91,5 @@ function change(g,delta){const current=state.purchases[g.id]||0;if(delta>0&&(vie
 .round-divider{margin:12px 0 0;border-top:1px solid #dce7de}
 .activity-material-total{margin-bottom:12px}
 .activity-material-number{font-size:22px;font-weight:600;color:#315740;font-variant-numeric:tabular-nums}
+.reachable-number{font-size:15px;font-weight:600;color:#315740;font-variant-numeric:tabular-nums}
 </style>

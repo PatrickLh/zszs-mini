@@ -1,5 +1,5 @@
 import {activities} from './core/activities.js';
-import {createPreviewState,activityPreview,resetPreview,setPaidPack} from './core/activity-preview.js';
+import {createPreviewState,activityPreview,resetPreview,setPaidPack,selectRoundTarget} from './core/activity-preview.js';
 const $=id=>document.getElementById(id);
 const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const image=path=>escape(path.startsWith('/static/')?'uni-app'+path:path);
@@ -11,6 +11,10 @@ function setForm(){ $('stock').value=state.stock;$('weekly').checked=state.weekl
 function render(){
  const config=activity.config,planner=activity.calculator,goods=planner.goods;
  view=activityPreview(planner,state);
+ const nextStage = view.nextStage;
+ $('reachable-stage').innerHTML = nextStage
+  ? `预计可达 ${escape(config.progressLabel)} <strong>${view.reachableProgress}</strong>${escape(config.progressUnit)} · 下一阶段（第 <strong>${nextStage.progress}</strong>${escape(config.progressUnit)}）还差 <strong>${nextStage.gap}</strong> 个${escape(config.material.name)}`
+  : '全部阶段已完成或预计可达';
  const futureMaterial = view.futureFree + view.futurePurchased;
  $('activity-material-total').textContent = state.stock + futureMaterial;
  $('activity-material-breakdown').textContent = `当前拥有 ${state.stock} + 剩余天数可获得 ${futureMaterial}`;
@@ -38,12 +42,12 @@ function render(){
  const scrollLeft=$('stages').scrollLeft;
  $('stage-cards').innerHTML=view.rows.filter(r=>r.end).map(r=>{
   const safe=view.safeRows.find(s=>s.progress===r.progress);
-   return `<button class="round-card ${state.preview===r.progress?'selected-round':''}" data-preview="${r.progress}" aria-pressed="${state.preview===r.progress}"><div class="round-title">第 ${r.round} 轮<span>${r.gap===0?'预计可达':''}</span></div><div class="round-metric"><span>${config.cost.kind==='combat'?'预计需':'累计净需'}</span><strong>${r.required}<small> ${escape(config.material.name)}</small></strong></div>${config.cost.kind==='combat'?`<div class="round-metric"><span>保守需</span><strong>${safe.required}<small> ${escape(config.material.name)}</small></strong></div>`:''}<div class="round-pages"><span>累计${escape(config.currency.name)}</span><strong>${r.currency+view.base+view.paid.currency}</strong></div><div class="refund-note">阶段累计返还 ${r.refund} ${escape(config.material.name)}（已计入需求）</div>${!r.gap?`<div class="refund-note">达成后预计剩余 ${r.remaining} ${escape(config.material.name)}</div>`:''}<div class="round-gap ${r.gap?'gap':'enough'}">${r.gap?'预计还差 '+r.gap:'当前材料预计足够'}</div></button>`;
+   return `<button class="round-card ${state.preview===r.progress?'selected-round':''}" data-preview="${r.progress}" aria-pressed="${state.preview===r.progress}"><div class="round-title">第 ${r.round} 轮<span>${r.gap===0?'预计可达':''}</span></div><div class="round-metric"><span>${config.cost.kind==='combat'?'所需（预计）':'所需'}</span><strong>${r.cost}<small> ${escape(config.material.name)}</small></strong></div>${config.cost.kind==='combat'?`<div class="round-metric"><span>保守总耗</span><strong>${safe.cost}<small> ${escape(config.material.name)}</small></strong></div>`:''}<div class="round-pages"><span>累计${escape(config.currency.name)}</span><strong>${r.currency+view.base+view.paid.currency}</strong></div><div class="refund-note">达成后累计返还 ${r.refund} ${escape(config.material.name)}</div>${!r.gap?`<div class="refund-note">达成后预计剩余 ${r.remaining} ${escape(config.material.name)}</div>`:''}<div class="round-gap ${r.gap?'gap':'enough'}">${r.gap?'当前道具不足以完成本轮':'当前材料预计足够'}</div></button>`;
  }).join('');
  $('stages').scrollLeft=scrollLeft;
  $('details').innerHTML=view.rows.map(r=>`<tr><td>第${r.round}轮 · ${r.progress}${escape(config.progressUnit)}</td><td>${r.cost}</td><td>+${r.refund}</td><td>${r.currency+view.base+view.paid.currency}</td></tr>`).join('');
  $('table-currency').textContent=config.currency.name+'累计';
- $('wallet-label').innerHTML=`<img class="material-icon" src="${image(config.currency.image)}" alt="">${state.preview===null?'预计可用':'达成目标后可用'}${escape(config.currency.name)}`;
+ $('wallet-label').innerHTML=`<img class="material-icon" src="${image(config.currency.image)}" alt="">`;
  $('wallet').value=view.wallet;
  $('spent').textContent=`已消耗 ${view.spent} ${config.currency.name}`;
  $('wallet-note').textContent=`${state.preview===null?'预计完成任务后获得':'达成所选轮次后获得'} ${view.earned} + 当前余额 ${view.currentCurrency} + 后续附带 ${view.base} + 礼包直接 ${view.paid.currency} − 已兑换 ${view.spent}。${state.preview!==null&&view.previewGap?`所选目标仍差 ${view.previewGap} ${config.material.name}。`:''}`;
@@ -63,7 +67,7 @@ document.addEventListener('click',e=>{
  if(pack&&!pack.disabled){const id=pack.dataset.pack;setPaidPack(activity.config,state,id,(view.paid.counts[id]||0)+Number(pack.dataset.delta));render();document.querySelector(`[data-pack="${id}"][data-delta="${pack.dataset.delta}"]`)?.focus({preventScroll:true});return}
  const switcher=e.target.closest('[data-activity]');
  if(switcher){activity=activities.find(a=>a.id===switcher.dataset.activity);state=states[activity.id];setForm();render();const url=new URL(location.href);url.searchParams.set('activity',activity.id);history.replaceState(null,'',url);return}
- const pick=e.target.closest('[data-preview]');if(pick){state.purchases={};state.preview=Number(pick.dataset.preview);render();return}
+ const pick=e.target.closest('[data-preview]');if(pick){selectRoundTarget(state,view,Number(pick.dataset.preview));$('stock').value=state.stock;render();return}
  const buy=e.target.closest('[data-buy]');
  if(buy&&!buy.disabled){const g=activity.calculator.goods.find(g=>g.id===buy.dataset.buy);if(view.wallet>=g.price&&view.spent>=g.unlock&&(state.purchases[g.id]||0)<g.limit){state.purchases[g.id]=(state.purchases[g.id]||0)+1;render()}}
 });

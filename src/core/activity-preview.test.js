@@ -77,3 +77,13 @@ test('three shanhai days include free and planned spirit jade tickets',()=>{
  assert.equal(excluded.wallet,0);
  assert.equal(excluded.rows.find(row=>row.end).gap,55);
 });
+
+test('appraisal progress uses only unlocked rewards to estimate the next stage',()=>{
+ const config=getActivityConfig('jianshi-dahui'),planner=createPlanner(config),state=createPreviewState(config);
+ state.weekly=false;
+ for(const [stock,progress,next,gap] of [[0,0,4,4],[3,3,4,1],[4,5,8,3]]){
+  state.stock=stock;
+  const view=activityPreview(planner,state);
+  assert.deepEqual([view.reachableProgress,view.nextStage.progress,view.nextStage.gap],[progress,next,gap]);
+ }
+});

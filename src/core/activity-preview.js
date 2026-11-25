@@ -36,6 +36,12 @@ export function activityPreview(planner, state) {
   const result = planner.simulate({stock: totalStock, progress});
   const safe = planner.config.cost.kind === 'combat' ? planner.simulate({stock: totalStock, progress, mode:'safe'}) : result;
   const reachable = result.rows.filter(r => r.gap === 0).at(-1);
+  const completedProgress = reachable?.progress ?? progress;
+  const nextStage = result.rows.find(stage => stage.progress > completedProgress);
+  const remainingMaterial = reachable?.remaining ?? totalStock;
+  const reachableProgress = nextStage
+    ? Math.min(nextStage.progress - 1, completedProgress + Math.floor(remainingMaterial / planner.attackCost('expected')))
+    : completedProgress;
   const row = state.preview === null ? reachable : result.rows.find(r => r.progress === state.preview);
   const base = Math.max(0, Math.trunc((Number(state.weeklyCurrency) || 0) * remainingDays / 7));
   const earned = row?.currency || 0;
@@ -44,7 +50,17 @@ export function activityPreview(planner, state) {
   const paidTaskCurrency = (reachable?.currency || 0) - (beforePaid?.currency || 0);
   const spent = planner.goods.reduce((sum, g) => sum + (state.purchases[g.id] || 0) * g.price, 0);
   const refund = planner.goods.reduce((sum, g) => sum + (state.purchases[g.id] || 0) * g.refund, 0);
-  return {futureFree, futurePurchased, currentCurrency, progress, rows: result.rows, safeRows: safe.rows, base, earned, spent, refund, budget,
+  return {reachableProgress, nextStage, futureFree, futurePurchased, currentCurrency, progress, rows: result.rows, safeRows: safe.rows, base, earned, spent, refund, budget,
     paid, totalStock, paidTaskCurrency, reachableCurrency: reachable?.currency || 0,
     previewGap: row?.gap || 0, wallet: Math.max(0, budget - spent)};
+}
+
+
+export function selectRoundTarget(state, view, progress) {
+  const target = view.rows.find(row => row.end && row.progress === progress);
+  if (!target) return;
+  const extraMaterial = view.futureFree + view.futurePurchased + view.paid.material;
+  state.stock = Math.max(0, target.required - extraMaterial);
+  state.preview = progress;
+  state.purchases = {};
 }
